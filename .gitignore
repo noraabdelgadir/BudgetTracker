@@ -1,0 +1,13 @@
+.DS_Store
+*/.DS_Store
+**/.DS_Store
+.metadata/
+./metadata
+**/metadata/*
+.metadata/.*
+.metadata
+.metadata
+.recommenders/
+.metadata/.mylyn/tasks.xml.zip
+.metadata/.mylyn/.tasks.xml.zip
+.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
