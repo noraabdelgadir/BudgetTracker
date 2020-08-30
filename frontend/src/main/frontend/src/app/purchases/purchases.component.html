@@ -1,0 +1,28 @@
+<div class="container">
+    <h2>Purchases</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Entry</th>
+          <th>Date</th>
+          <th>Item</th>
+          <th>Amount</th>
+          <th>Store</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let purchase of purchases; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{purchase.date}}</td>
+          <td>{{purchase.item}}</td>
+          <td>{{purchase.amount}}</td>
+          <td>{{purchase.store}}</td>
+          <td>{{purchase.category}}</td>
+        </tr>
+        <!-- <tr>
+        <td>{{sum}}</td>
+        </tr> -->
+      </tbody>
+    </table>
+  </div>
