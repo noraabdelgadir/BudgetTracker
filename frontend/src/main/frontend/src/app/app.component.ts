@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AppService } from './app.service';
 import { takeUntil } from 'rxjs/operators';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-root',
@@ -11,17 +12,17 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class AppComponent implements OnDestroy, OnInit {
   constructor(private appService: AppService) {}
-  title = 'Budget Tracker';
   destroy$: Subject<boolean> = new Subject<boolean>();
   purchases: any[] = [];
   sum = 0;
+  categories = ['Food', 'Entertainment', 'Utilities', 'Other'];
 
   purchasesForm = new FormGroup({
     item: new FormControl('', Validators.nullValidator && Validators.required),
     category: new FormControl('', Validators.nullValidator && Validators.required),
     store: new FormControl('', Validators.nullValidator && Validators.required),
     date: new FormControl('', Validators.nullValidator && Validators.required),
-    amount: new FormControl('', Validators.nullValidator && Validators.required, && Validators.),
+    amount: new FormControl('', Validators.nullValidator && Validators.required && Validators.min(0)),
   });
 
   ngOnInit(): void {
@@ -32,10 +33,9 @@ export class AppComponent implements OnDestroy, OnInit {
     this.appService.getPurchases().pipe(takeUntil(this.destroy$)).subscribe((purchases: any[]) => {
         this.purchases = purchases;
     });
-    for (const p of this.purchases){
-      this.sum += p.amount;
-    }
+    this.purchases.forEach(purchase => purchase.date = moment(purchase.date).format('LLL') );
   }
+
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
@@ -43,8 +43,7 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   onSubmit(): void {
-    this.appService.addPurchase(this.purchasesForm.value).pipe(takeUntil(this.destroy$)).subscribe(data => {
-      this.purchasesForm.reset();
-    });
+    this.appService.addPurchase(this.purchasesForm.value);
+    this.purchasesForm.reset();
   }
 }

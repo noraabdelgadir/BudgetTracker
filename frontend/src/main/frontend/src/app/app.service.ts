@@ -15,12 +15,9 @@ export class AppService {
   }
 
   addPurchase(purchase: any): any {
-    // purchase.id = id;
-    console.log({purchase});
-    return this.http.post(this.rootURL + '/purchases/create/', purchase).subscribe(
+    return this.http.post(this.rootURL + '/purchases/', purchase).subscribe(
         data => console.log('success', data),
         error => console.log('oops', error)
       );
   }
-
 }

@@ -1,13 +1,13 @@
-<app-header></app-header>
+
 <div class="container">
-  <div class="row">
-    <div class="col-md-4 mrgnbtm">
+  <app-header></app-header>
+    <div>
         <app-purchases
         *ngIf="purchases.length !== 0" [purchases]="purchases"
         >
-        </app-purchases>x
+        </app-purchases>
       </div>
-    <div class="col-md-7 mrgnbtm">
+    <div class="purchaseForm">
       <h2>Add Purchase</h2>
       <form method="post" [formGroup]="purchasesForm" (ngSubmit)="onSubmit()">
         <div class="row">
@@ -25,7 +25,7 @@
         <div class="row">
           <div class="form-group col-md-12">
             <label for="amountInput">Amount</label>
-            <input type="number" class="form-control" formControlName="amount" id="amountInput" placeholder="The amount you spent">
+            <input type="number" min="0" class="form-control" formControlName="amount" id="amountInput" placeholder="The amount you spent">
           </div>
         </div>
         <div class="row">
@@ -37,11 +37,13 @@
         <div class="row">
             <div class="form-group col-md-12">
                 <label for="categoryInput">Category</label>
-                <input type="text" class="form-control" formControlName="category" id="categoryInput" placeholder="Category of purchase">
+                <select formControlName="category">
+                  <option value="" disabled>Choose the category</option>
+                  <option *ngFor="let category of categories" [ngValue]="categories">{{category}}</option>
+              </select>
             </div>
         </div>
         <button type="submit" [disabled]="!purchasesForm.valid" class="btn btn-danger">Create</button>
       </form>
     </div>
-  </div>
 </div>

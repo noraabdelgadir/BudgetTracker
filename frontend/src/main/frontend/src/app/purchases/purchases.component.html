@@ -1,6 +1,6 @@
-<div class="container">
+<div class="purchases">
     <h2>Purchases</h2>
-    <table class="table table-bordered">
+    <table class="table">
       <thead>
         <tr>
           <th>Entry</th>
@@ -12,17 +12,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let purchase of purchases; let i = index">
+        <tr *ngFor="let purchase of purchases; let i = index" ng-repeat="x in purchases | orderBy : 'purchases.date'">
           <td>{{i + 1}}</td>
           <td>{{purchase.date}}</td>
           <td>{{purchase.item}}</td>
-          <td>{{purchase.amount}}</td>
+          <td>${{purchase.amount}}</td>
           <td>{{purchase.store}}</td>
           <td>{{purchase.category}}</td>
         </tr>
-        <!-- <tr>
-        <td>{{sum}}</td>
-        </tr> -->
       </tbody>
     </table>
   </div>

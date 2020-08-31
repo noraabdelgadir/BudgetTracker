@@ -29,3 +29,6 @@ hs_err_pid*
 .metadata/
 .recommenders/
 .settings/
+
+frontend/target/
+backend/target/
