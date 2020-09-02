@@ -23,3 +23,12 @@ table {
 table, th, td {
     border: 1px solid black;
 }
+
+#total {
+    text-align: right;
+    border: none;
+}
+
+#sum {
+    background-color: #f49dff
+}

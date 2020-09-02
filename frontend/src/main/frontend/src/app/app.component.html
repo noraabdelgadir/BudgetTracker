@@ -7,7 +7,10 @@
         >
         </app-purchases>
       </div>
-    <div class="purchaseForm">
+      <div>
+      <app-purchase-form></app-purchase-form>
+    </div>
+    <!-- <div class="purchaseForm">
       <h2>Add Purchase</h2>
       <form method="post" [formGroup]="purchasesForm" (ngSubmit)="onSubmit()">
         <div class="row">
@@ -43,7 +46,8 @@
               </select>
             </div>
         </div>
-        <button type="submit" [disabled]="!purchasesForm.valid" class="btn btn-danger">Create</button>
+        <button type="cancel" class="btn btn-danger">Cancel</button>
+        <button type="submit" [disabled]="!purchasesForm.valid" class="btn btn-danger">Submit</button>
       </form>
-    </div>
+    </div> -->
 </div>

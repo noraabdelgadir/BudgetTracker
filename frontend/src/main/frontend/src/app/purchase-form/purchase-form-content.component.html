@@ -1,0 +1,47 @@
+<div class="purchaseForm modal-header">
+    <h4 class="modal-title">Add Purchase</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form [formGroup]="purchasesForm" (ngSubmit)="onSubmit()"> 
+          <div class="row">
+          <div class="form-group col-md-12">
+            <label for="dateInput">Date</label>
+            <input type="date" class="form-control" formControlName="date" id="dateInput">
+          </div>
+        </div>
+      <div class="row">
+        <div class="form-group col-md-12">
+          <label for="itemInput">Item</label>
+          <input type="text" class="form-control" formControlName="item" id="itemInput" placeholder="Item you purchased">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-12">
+          <label for="amountInput">Amount</label>
+          <input type="number" min="0" class="form-control" formControlName="amount" id="amountInput" placeholder="Amount you spent">
+        </div>
+      </div>
+      <div class="row">
+          <div class="form-group col-md-12">
+              <label for="storeInput">Store</label>
+              <input type="text" class="form-control" formControlName="store" id="storeInput" placeholder="Where the item was purchased">
+          </div>
+      </div>
+      <div class="row">
+          <div class="form-group col-md-12">
+              <label for="categoryInput">Category</label>
+              <select formControlName="category">
+                <option value="" disabled>Choose the category</option>
+                <option *ngFor="let category of categories" [ngValue]="categories">{{category}}</option>
+            </select>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="cancel" class="btn btn-danger mr-auto" (click)="activeModal.close('Close click')">Cancel</button>
+        <button type="submit" [disabled]="!purchasesForm.valid" class="btn btn-danger">Submit</button>
+      </div>
+    </form>
+</div>
