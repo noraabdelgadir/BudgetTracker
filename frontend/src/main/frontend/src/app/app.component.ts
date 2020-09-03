@@ -13,6 +13,7 @@ export class AppComponent implements OnDestroy, OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
   purchases: any[] = [];
   sum = 0;
+  budget = 0;
 
   ngOnInit(): void {
     this.getAllPurchases();

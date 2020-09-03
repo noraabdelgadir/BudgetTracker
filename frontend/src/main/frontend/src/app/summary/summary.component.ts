@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-summary',
@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SummaryComponent implements OnInit {
 
+  @Input() budget;
+
   constructor() { }
+
+  // budget = 0;
+  withinBudget = 'Within Budget';
+  percentage = 0;
 
   ngOnInit(): void {
   }

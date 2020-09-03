@@ -1,53 +1,13 @@
 
-<div class="container">
-  <app-header></app-header>
-    <div>
-        <app-purchases
-        *ngIf="purchases.length !== 0" [purchases]="purchases"
-        >
-        </app-purchases>
-      </div>
-      <div>
-      <app-purchase-form></app-purchase-form>
-    </div>
-    <!-- <div class="purchaseForm">
-      <h2>Add Purchase</h2>
-      <form method="post" [formGroup]="purchasesForm" (ngSubmit)="onSubmit()">
-        <div class="row">
-            <div class="form-group col-md-12">
-              <label for="dateInput">Date</label>
-              <input type="date" class="form-control" formControlName="date" id="dateInput" placeholder="Date of purchase">
-            </div>
-          </div>
-        <div class="row">
-          <div class="form-group col-md-12">
-            <label for="itemInput">Item</label>
-            <input type="text" class="form-control" formControlName="item" id="itemInput" placeholder="Item you purchased">
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-md-12">
-            <label for="amountInput">Amount</label>
-            <input type="number" min="0" class="form-control" formControlName="amount" id="amountInput" placeholder="The amount you spent">
-          </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label for="storeInput">Store</label>
-                <input type="text" class="form-control" formControlName="store" id="storeInput" placeholder="Name of store this item was purchased at">
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label for="categoryInput">Category</label>
-                <select formControlName="category">
-                  <option value="" disabled>Choose the category</option>
-                  <option *ngFor="let category of categories" [ngValue]="categories">{{category}}</option>
-              </select>
-            </div>
-        </div>
-        <button type="cancel" class="btn btn-danger">Cancel</button>
-        <button type="submit" [disabled]="!purchasesForm.valid" class="btn btn-danger">Submit</button>
-      </form>
-    </div> -->
+<app-header></app-header>
+<div>
+  <app-budget-form></app-budget-form>
+  <app-summary [budget]="budget"></app-summary>
+  <app-purchase-form></app-purchase-form>
+    <app-purchases
+    *ngIf="purchases.length !== 0" [purchases]="purchases"
+    >
+    </app-purchases>
+  </div>
+  <div>
 </div>

@@ -9,6 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { PurchasesComponent } from './purchases/purchases.component';
 import { SummaryComponent } from './summary/summary.component';
 import { PurchaseFormComponent, PurchaseFormContentComponent } from './purchase-form/purchase-form.component';
+import { BudgetFormComponent, BudgetFormContentComponent } from './budget-form/budget-form.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,8 @@ import { PurchaseFormComponent, PurchaseFormContentComponent } from './purchase-
     SummaryComponent,
     PurchaseFormComponent,
     PurchaseFormContentComponent,
+    BudgetFormComponent,
+    BudgetFormContentComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +31,6 @@ import { PurchaseFormComponent, PurchaseFormContentComponent } from './purchase-
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [PurchaseFormContentComponent]
+  entryComponents: [PurchaseFormContentComponent, BudgetFormContentComponent]
 })
 export class AppModule { }

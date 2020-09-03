@@ -22,10 +22,6 @@ export class PurchaseFormContentComponent {
   });
   categories = ['Food', 'Entertainment', 'Utilities', 'Other'];
 
-  onClick(): void {
-    console.log('Submit button was clicked!');
-  }
-
   onSubmit(): void {
     this.appService.addPurchase(this.purchasesForm.value);
     this.purchasesForm.reset();

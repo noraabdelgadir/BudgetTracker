@@ -1,4 +1,20 @@
-#summary {
-    background-color: green;
+.summary {
+    width: 100%;
+    padding: 2%;
+    background-color: #eee2f3;
+    border-radius: 5px;
+}
 
+.box {
+    width: 35%;
+    margin: auto;
+    float: center;
+    background-color: #f49dff;
+    padding: 2%;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.totalBudget {
+    outline-color: #f49dff;
 }
