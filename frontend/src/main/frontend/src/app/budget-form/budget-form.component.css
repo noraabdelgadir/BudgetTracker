@@ -61,13 +61,11 @@ button[disabled]:hover {
 
 label {
   display: inline-block;
-  /* width: 140px; */
   text-align: center;
-  /* padding-right: 2%; */
 }
 
 #addRow {
-  padding-left: 75%;
+  padding-left: 90%;
 }
 
 .remainder {
@@ -76,4 +74,3 @@ label {
   margin-top: -2%;
   border: 1px solid black;
 }
-  

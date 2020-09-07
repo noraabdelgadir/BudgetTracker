@@ -18,3 +18,9 @@
 .totalBudget {
     outline-color: #f49dff;
 }
+
+#summaryChart {
+    width: 50%;
+    height: 50%;
+    margin: auto;
+}

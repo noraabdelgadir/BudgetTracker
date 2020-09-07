@@ -1,7 +1,9 @@
-import { Component, Output} from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { InternalService } from '../internal.service';
+import { SummaryComponent } from '../summary/summary.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-total-form-content',
@@ -10,9 +12,10 @@ import { InternalService } from '../internal.service';
 })
 export class TotalFormContentComponent {
 
-  constructor(public activeModal: NgbActiveModal, private internalService: InternalService) { }
+  constructor(public activeModal: NgbActiveModal, private internalService: InternalService, private summary: SummaryComponent) { }
 
   total: 0;
+  subscription: Subscription;
 
   totalForm = new FormGroup({
     total: new FormControl(0, Validators.nullValidator && Validators.required && Validators.min(0)),

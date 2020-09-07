@@ -5,26 +5,25 @@
     </button>
   </div>
   <div class="modal-body">
-      <form [formGroup]="budgetForm" (ngSubmit)="onSubmit()"> 
-        <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group col-md-12">
-            <label for="categoryInput">Category</label>
-            <input type="text" class="form-control" formControlName="category" id="categoryInput">
+    Total: ${{total}}. Unallocated: ${{unallocated}}.
+    <form class="form-horizontal" [formGroup]="budgetForm" (ngSubmit)="onSubmit()">
+      <table>
+        <tr formArrayName="breakdown" *ngFor="let bd of budgetForm.get('breakdown')['controls']; let i = index">
+          <div [formGroupName]="i">
+            <td>
+              <label for="categoryInput">Category</label>
+              <input type="text" class="form-control" formControlName="category" id="categoryInput">
+            </td>
+            <td>
+                <label for="amountInput">Amount</label>
+                <input type="number" min="0" class="form-control" formControlName="amount" id="amountInput">
+            </td>
           </div>
-        </div>
-      <div class="col-sm-6">
-        <div class="form-group col-md-12">
-          <label for="amountInput">Amount</label>
-          <input type="number" min="0" class="form-control" formControlName="amount" id="amountInput">
-        </div>
-    </div>
-    </div>
-    <button type="button" id="addRow" class="btn btn-default">
-      <i class="fas fa-plus-square fa-1x"></i>
-      New row
-    </button>
-      
+        </tr>
+      </table>
+      <button type="button" id="addRow" class="btn btn-default" (click)="addButtonClick()">
+        <i class="fas fa-plus-square fa-2x"></i>
+      </button>
       <div class="modal-footer">
         <button type="cancel" class="btn btn-danger mr-auto" (click)="activeModal.close('Close click')">Cancel</button>
         <button type="submit" [disabled]="!budgetForm.valid" class="btn btn-danger">Submit</button>

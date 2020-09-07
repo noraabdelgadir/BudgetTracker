@@ -13,16 +13,22 @@ export class AppComponent implements OnDestroy, OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
   purchases: any[] = [];
   sum = 0;
-  budget = 0;
 
   ngOnInit(): void {
     this.getAllPurchases();
+    this.getSum();
   }
 
   getAllPurchases(): void {
     this.appService.getPurchases().pipe(takeUntil(this.destroy$)).subscribe((purchases: any[]) => {
         this.purchases = purchases;
     });
+  }
+
+  getSum(): void {
+    this.sum = this.purchases.reduce((prev, cur) => {
+      return prev + cur.amount;
+    }, 0);
   }
 
   ngOnDestroy(): void {

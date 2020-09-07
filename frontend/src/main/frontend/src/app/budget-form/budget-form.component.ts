@@ -1,76 +1,54 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AppService } from '../app.service';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { InternalService } from '../internal.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-budget-modal',
   templateUrl: './budget-form-content.component.html',
   styleUrls: ['./budget-form.component.css']
 })
-export class BudgetFormContentComponent{
+export class BudgetFormContentComponent implements OnInit, OnDestroy {
+  budgetForm: FormGroup;
+  total = 0;
+  unallocated = 0;
+  subscription: Subscription;
 
-  constructor(public activeModal: NgbActiveModal, private appService: AppService) { }
+  constructor(public activeModal: NgbActiveModal, private internalService: InternalService, private formBuilder: FormBuilder) {
+    this.subscription = internalService.total$.subscribe((total => this.total = total));
+  }
 
-  budgetForm = new FormGroup({
-    category: new FormControl('', Validators.nullValidator && Validators.required),
-    amount: new FormControl(0, Validators.nullValidator && Validators.required && Validators.min(0)),
-  });
+  ngOnInit(): void {
+    this.budgetForm = this.formBuilder.group({
+      breakdown: this.formBuilder.array([this.addBudgetFormGroup()])
+    });
+  }
+
+  addBudgetFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      category: new FormControl('', Validators.nullValidator && Validators.required),
+      amount: new FormControl(0, Validators.nullValidator && Validators.required && Validators.min(0)),
+    });
+  }
+
+  addButtonClick(): void {
+    (this.budgetForm.get('breakdown') as FormArray).push(
+      this.addBudgetFormGroup()
+    );
+  }
 
   onSubmit(): void {
-    // this.appService.setBudget(this.budgetForm.value);
-    console.log(this.budgetForm.value);
+    this.internalService.setCategoryBreakdown(this.budgetForm.value.breakdown);
     this.budgetForm.reset();
     this.activeModal.close('Submit');
   }
 
-  // addNewRow(): string {
-  //   const newrow = '<div class="col-sm-5">' +
-  //   '<div class="form-group col-md-12">' +
-  //     '<label for="categoryInput">Category</label>' +
-  //     '<input type="text" class="form-control" formControlName="category" id="categoryInput">' +
-  //   '</div>' +
-  //   '</div>' +
-  //   '<div class="col-sm-5">' +
-  //   '<div class="form-group col-md-12">' +
-  //   '<label for="amountInput">Amount</label>' +
-  //   '<input type="number" min="0" class="form-control" formControlName="amount" id="amountInput">' +
-  //   '</div>' +
-  //   '</div>' +
-  //   '<div class="col-sm-2">' +
-  //   '<button type="button" id="addRow" class="btn btn-default">' +
-  //   '<i class="fas fa-plus-square fa-3x"></i>' +
-  //   'New row' +
-  //   '</button>';
-  //   return newrow;
-  // }
+  ngOnDestroy(): void {
+    // prevent memory leak when component destroyed
+    this.subscription.unsubscribe();
+  }
 }
-
-// $('#addRow').click(() => {
-//   console.log('clicked');
-//   $('#formContainer').append(addNewRow());
-// });
-
-// function addNewRow(): string {
-//   const newrow = '<div class="col-sm-5">' +
-//   '<div class="form-group col-md-12">' +
-//     '<label for="categoryInput">Category</label>' +
-//     '<input type="text" class="form-control" formControlName="category" id="categoryInput">' +
-//   '</div>' +
-//   '</div>' +
-//   '<div class="col-sm-5">' +
-//   '<div class="form-group col-md-12">' +
-//   '<label for="amountInput">Amount</label>' +
-//   '<input type="number" min="0" class="form-control" formControlName="amount" id="amountInput">' +
-//   '</div>' +
-//   '</div>' +
-//   '<div class="col-sm-2">' +
-//   '<button type="button" id="addRow" class="btn btn-default">' +
-//   '<i class="fas fa-plus-square fa-3x"></i>' +
-//   'New row' +
-//   '</button>';
-//   return newrow;
-// }
 
 @Component({
   selector: 'app-budget-form',
@@ -81,6 +59,6 @@ export class BudgetFormComponent {
   constructor(private modalService: NgbModal) { }
 
   open(): void {
-    const modalRef = this.modalService.open(BudgetFormContentComponent);
+    this.modalService.open(BudgetFormContentComponent);
   }
 }

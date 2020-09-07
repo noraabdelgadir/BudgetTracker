@@ -20,5 +20,4 @@ export class PurchasesComponent implements OnInit {
       return prev + cur.amount;
     }, 0);
   }
-
 }
