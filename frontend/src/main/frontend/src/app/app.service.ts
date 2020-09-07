@@ -20,4 +20,15 @@ export class AppService {
         error => console.log('oops', error)
       );
   }
+
+  getBudget(): any {
+    return this.http.get(this.rootURL + '/budgets/');
+  }
+
+  setBudget(budget: any): any {
+    return this.http.post(this.rootURL + '/budgets/', budget).subscribe(
+        data => console.log('success', data),
+        error => console.log('oops', error)
+      );
+  }
 }

@@ -1,10 +1,10 @@
 package org.acme.budgettracker.repositories;
 
-import org.acme.budgettracker.models.Purchase;
+import org.acme.budgettracker.models.Budget;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
+public interface BudgetRepository extends CrudRepository<Budget, Long> {
 
 }

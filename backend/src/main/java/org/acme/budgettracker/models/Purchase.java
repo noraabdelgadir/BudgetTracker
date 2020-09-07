@@ -9,17 +9,8 @@ import javax.persistence.Id;
 
 @Entity
 public class Purchase {
-	public String getCategory() {
-		return category;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-
 	private long id;
 	private String item;
 	private String store;
@@ -63,11 +54,11 @@ public class Purchase {
 		this.date = date;
 	}
 
-	public long getId() {
-		return id;
-	}
-
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public String getCategory() {
+		return category;
 	}
 }

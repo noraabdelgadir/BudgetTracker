@@ -1,11 +1,12 @@
 
 <app-header></app-header>
 <div>
-  <app-budget-form></app-budget-form>
-  <app-summary [budget]="budget"></app-summary>
+  <app-total-form></app-total-form>
+  <!-- <app-budget-form></app-budget-form> -->
+  <app-summary></app-summary>
   <app-purchase-form></app-purchase-form>
     <app-purchases
-    *ngIf="purchases.length !== 0" [purchases]="purchases"
+    [purchases]="purchases"
     >
     </app-purchases>
   </div>

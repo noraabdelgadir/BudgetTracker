@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { InternalService } from '../internal.service';
 
 @Component({
   selector: 'app-summary',
@@ -6,16 +7,22 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./summary.component.css']
 })
 export class SummaryComponent implements OnInit {
+   budget;
+  
 
-  @Input() budget;
-
-  constructor() { }
+  constructor(private internalService: InternalService) { }
 
   // budget = 0;
   withinBudget = 'Within Budget';
   percentage = 0;
 
   ngOnInit(): void {
+    this.budget = this.internalService.getTotal() || 0;
   }
+
+  ngOnChange(): void {
+    // this will be called each time userInput changes
+    this.budget = this.internalService.getTotal() || 0;
+}
 
 }
