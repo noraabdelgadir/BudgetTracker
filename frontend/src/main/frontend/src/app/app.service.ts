@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   rootURL = '/api';
 
@@ -16,9 +15,9 @@ export class AppService {
 
   addPurchase(purchase: any): any {
     return this.http.post(this.rootURL + '/purchases/', purchase).subscribe(
-        data => console.log('success', data),
-        error => console.log('oops', error)
-      );
+      (data) => console.log('success', data),
+      (error) => console.log('oops', error)
+    );
   }
 
   getBudget(): any {
@@ -27,8 +26,8 @@ export class AppService {
 
   setBudget(budget: any): any {
     return this.http.post(this.rootURL + '/budgets/', budget).subscribe(
-        data => console.log('success', data),
-        error => console.log('oops', error)
-      );
+      (data) => console.log('success', data),
+      (error) => console.log('oops', error)
+    );
   }
 }

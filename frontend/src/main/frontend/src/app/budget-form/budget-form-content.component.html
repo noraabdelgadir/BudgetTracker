@@ -5,7 +5,6 @@
     </button>
   </div>
   <div class="modal-body">
-    Total: ${{total}}. Unallocated: ${{unallocated}}.
     <form class="form-horizontal" [formGroup]="budgetForm" (ngSubmit)="onSubmit()">
       <table>
         <tr formArrayName="breakdown" *ngFor="let bd of budgetForm.get('breakdown')['controls']; let i = index">

@@ -1,14 +1,8 @@
 
 <app-header></app-header>
 <div>
-  <app-total-form></app-total-form>
-  <!-- <app-budget-form></app-budget-form> -->
   <app-summary [sum]="sum"></app-summary>
   <app-purchase-form></app-purchase-form>
-    <app-purchases
-    [purchases]="purchases"
-    >
-    </app-purchases>
-  </div>
-  <div>
+  <app-purchases [purchases]="purchases">
+  </app-purchases>
 </div>
