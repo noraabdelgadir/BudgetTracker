@@ -6,8 +6,21 @@ To run the application, from root:
 
 ```
 mvn clean install
+```
+
+Start the backend:
+
+```
 cd backend
 mvn spring-boot:run
 ```
 
-Then visit http://localhost:8080/
+In another terminal, start the frontend:
+
+```
+cd frontend
+npm start
+```
+
+
+Then visit http://localhost:4200/
