@@ -10,7 +10,7 @@ import javax.persistence.Id;
 @Entity
 public class Purchase {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String item;
 	private String store;
@@ -19,7 +19,7 @@ public class Purchase {
 	private String category;
 
 	public Purchase() {
-		
+
 	}
 
 	public String getItem() {

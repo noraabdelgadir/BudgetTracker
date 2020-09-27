@@ -1,37 +1,46 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { InternalService } from '../internal.service';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import Plotly from 'plotly.js-dist';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.css'],
 })
-export class SummaryComponent implements OnInit, OnDestroy {
-  budget = 0;
+export class SummaryComponent implements OnInit {
+  totalBudget = 0;
   withinBudget = 'within budget';
   percentage = 0;
-  categoryBreakdown = [];
-  subscription: Subscription;
+  sum = 0;
+  budget;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
-  @Input() sum;
+  constructor(private appService: AppService) {}
 
-  constructor(private internalService: InternalService) {
-    this.subscription = internalService.budgetSource$.subscribe(
-      (categoryBreakdown) => {
-        this.categoryBreakdown = categoryBreakdown;
-        const amounts = this.categoryBreakdown.map((item) => item.amount);
-        this.budget = amounts.reduce((a, b) => a + b, 0);
-      }
-    );
+  async ngOnInit(): Promise<void> {
+    await this.getSum();
+    this.getBudget();
   }
 
-  ngOnInit(): void {
-    this.setChart();
-    this.percentage = this.budget === 0 ? 0 : (this.sum / this.budget) * 100.0;
-    this.withinBudget =
-      this.percentage <= 100 ? 'within budget' : 'over budget';
+  getBudget(): void {
+    this.appService.budgetUpdated.subscribe(async () => {
+      this.budget = await this.appService.getBudget();
+      const amounts = this.budget.map((item) => item.amount);
+      this.totalBudget = amounts.reduce((a, b) => a + b, 0);
+      this.percentage =
+        this.totalBudget === 0
+          ? 0
+          : parseFloat(((this.sum / this.totalBudget) * 100.0).toFixed(2));
+
+      if (this.totalBudget === 0) {
+        this.withinBudget = 'No budget set up';
+      } else {
+        this.withinBudget =
+          this.percentage <= 100 ? 'within budget' : 'over budget';
+      }
+      this.setChart();
+    });
   }
 
   setChart(): void {
@@ -43,24 +52,25 @@ export class SummaryComponent implements OnInit, OnDestroy {
       },
     ];
 
-    if (this.categoryBreakdown.length === 0) {
-      if (!this.budget) {
-        return;
-      }
-      data[0].values.push(this.budget);
-      data[0].labels.push('Unallocated');
+    if (!this.budget || this.budget.length === 0) {
+      return;
     } else {
-      const labels = this.categoryBreakdown.map((item) => item.category);
-      const values = this.categoryBreakdown.map((item) => item.amount);
-      data[0].values = labels;
-      data[0].labels = values;
+      const labels = this.budget.map((item) => item.category);
+      const values = this.budget.map((item) => item.amount);
+      data[0].values = values;
+      data[0].labels = labels;
     }
 
     Plotly.newPlot('summaryChart', data);
   }
 
-  ngOnDestroy(): void {
-    // prevent memory leak when component destroyed
-    this.subscription.unsubscribe();
+  async getSum(): Promise<void> {
+    this.appService.purchaseAdded.subscribe(async () => {
+      const purchases = await this.appService.getPurchases();
+      console.log(purchases);
+      this.sum = purchases.reduce((prev, cur) => {
+        return prev + cur.amount;
+      }, 0);
+    });
   }
 }

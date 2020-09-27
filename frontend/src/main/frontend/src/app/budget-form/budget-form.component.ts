@@ -7,7 +7,7 @@ import {
   FormBuilder,
   FormArray,
 } from '@angular/forms';
-import { InternalService } from '../internal.service';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-budget-modal',
@@ -16,12 +16,11 @@ import { InternalService } from '../internal.service';
 })
 export class BudgetFormContentComponent implements OnInit {
   budgetForm: FormGroup;
-  unallocated = 0;
 
   constructor(
     public activeModal: NgbActiveModal,
-    private internalService: InternalService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private appService: AppService
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +49,18 @@ export class BudgetFormContentComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.internalService.setBudget(this.budgetForm.value.breakdown);
+    const services = this.appService.setBudget(this.budgetForm.value.breakdown);
+    for (const service of services) {
+      service.subscribe(
+        () => {
+          this.appService.budgetUpdated.next(true);
+          console.log('success');
+        },
+        (error) => {
+          console.log('error: ', error);
+        }
+      );
+    }
     this.budgetForm.reset();
     this.activeModal.close('Submit');
   }

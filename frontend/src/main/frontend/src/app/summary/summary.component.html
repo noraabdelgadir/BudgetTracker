@@ -1,14 +1,14 @@
 <div class="summary">
-    <h2>Welcome!</h2>
-    <div class="totalBudget">
-        Your total budget is: ${{budget}}
-    </div>
-    <div class="box">
-       <h4> Status: {{withinBudget}}</h4><br>
-        You have spent {{percentage}}% of your total budget
-    </div>
-    <app-budget-form></app-budget-form>
-    <h3>Category breakdown:</h3>
+  <app-budget-form></app-budget-form>
+  <h2>Welcome!</h2>
+  <div class="totalBudget">Your total budget is: ${{ totalBudget }}</div>
+  <div class="box">
+    <h4>Status: {{ withinBudget }}</h4>
+    <br />
+    You have spent {{ percentage }}% of your total budget
+  </div>
+  <div>
+    <h3 *ngIf="totalBudget > 0">Category breakdown:</h3>
     <div id="summaryChart"></div>
+  </div>
 </div>
-  

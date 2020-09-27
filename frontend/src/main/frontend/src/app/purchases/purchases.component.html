@@ -1,30 +1,32 @@
 <div class="purchases">
-    <h2>Purchases</h2>
-    <button>View as chart</button>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Entry</th>
-          <th>Date</th>
-          <th>Item</th>
-          <th>Store</th>
-          <th>Category</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let purchase of purchases; let i = index" ng-repeat="x in purchases | orderBy : 'purchases.date'">
-          <td>{{i + 1}}</td>
-          <td>{{purchase.date}}</td>
-          <td>{{purchase.item}}</td>
-          <td>{{purchase.store}}</td>
-          <td>{{purchase.category}}</td>
-          <td>${{purchase.amount}}</td>
-        </tr>
-        <tr>
-          <td id="total" colspan="5"></td>
-          <td id="sum">${{sum}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <h2>Purchases</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Entry</th>
+        <th>Date</th>
+        <th>Item</th>
+        <th>Store</th>
+        <th>Category</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let purchase of purchases; let i = index"
+        ng-repeat="x in purchases | orderBy : 'purchases.date'"
+      >
+        <td>{{ i + 1 }}</td>
+        <td>{{ purchase.date }}</td>
+        <td>{{ purchase.item }}</td>
+        <td>{{ purchase.store }}</td>
+        <td>{{ purchase.category }}</td>
+        <td>${{ purchase.amount }}</td>
+      </tr>
+      <tr>
+        <td id="total" colspan="5"></td>
+        <td id="sum">${{ sum }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

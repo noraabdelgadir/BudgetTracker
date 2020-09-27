@@ -1,6 +1,7 @@
 package org.acme.budgettracker.models;
 
 import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,28 +10,28 @@ import javax.persistence.Id;
 @Entity
 public class Budget {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private BigDecimal total;
-	private BudgetMap budget;
+	private String category;
+
+	private BigDecimal amount;
 
 	public Budget() {
-
 	}
 
-	public void setTotal(BigDecimal total) {
-		this.total = total;
+	public String getCategory() {
+		return category;
 	}
 
-	public BigDecimal getTotal() {
-		return total;
+	public void setCategory(String category) {
+		this.category = category;
+	};
+
+	public BigDecimal getAmount() {
+		return amount;
 	}
 
-	public void setBudget(BudgetMap budget) {
-		this.budget = budget;
-	}
-
-	public BudgetMap getBudget() {
-		return budget;
-	}
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	};
 }
